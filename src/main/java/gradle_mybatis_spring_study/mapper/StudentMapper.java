@@ -23,6 +23,9 @@ public interface StudentMapper {
     /* 내포된 결과매핑(ResultMap)을 사용한 일대일 매핑 */
     Student selectStudentByNoAssociation(Student student);
 
+    //열거타입
+    int insertEnumStudent(Student student);
+    Student selectStudentByNoForEnum(Student student);
 }
 
 

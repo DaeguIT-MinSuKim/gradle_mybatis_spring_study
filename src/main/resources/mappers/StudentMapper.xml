@@ -70,6 +70,18 @@
 		  FROM STUDENTS S JOIN ADDRESSES A ON S.ADDR_ID=A.ADDR_ID
 		 WHERE STUD_ID = #{studId}
 	</select>
+	
+	<!-- enum 타입 다루기 -->
+	<insert id="insertEnumStudent" parameterType="Student">
+	    insert into students(stud_id, name, email,phone, dob, gender) 
+	    values(#{studId}, #{name}, #{email}, #{phone}, #{dob}, #{gender})
+	</insert>
+	
+	<select id="selectStudentByNoForEnum" parameterType="Student" resultType="Student">
+		SELECT STUD_ID, NAME, EMAIL, DOB, PHONE, gender 
+		  FROM STUDENTS
+		 WHERE STUD_ID = #{studId}
+	</select>
 </mapper>
 
 
