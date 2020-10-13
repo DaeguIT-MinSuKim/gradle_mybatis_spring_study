@@ -26,6 +26,19 @@ public interface StudentMapper {
     //열거타입
     int insertEnumStudent(Student student);
     Student selectStudentByNoForEnum(Student student);
+    
+    /* 여러 개의 입력 파라미터 전달 */
+    Student selectStudentByMap(Map<String, String> map);
+    List<Student> selectAllStudentByMap(Map<String, String> map);
+
+    
+    int insertStudent(Student student);
+    int deleteStudent(int id);
+    int updateStudent(Student student);
+
+    /* ResultSet 처리방식의 재정의 */
+    Map<Integer, Student> selectStudentForMap(Student student);
+
 }
 
 

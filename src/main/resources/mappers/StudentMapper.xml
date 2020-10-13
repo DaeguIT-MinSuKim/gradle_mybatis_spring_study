@@ -82,6 +82,65 @@
 		  FROM STUDENTS
 		 WHERE STUD_ID = #{studId}
 	</select>
+	
+	
+	<!-- 여러 개의 입력 파라미터 전달 -->
+	<sql id="selectAddGenderSQL">
+		SELECT STUD_ID, NAME, EMAIL, DOB, PHONE, GENDER 
+		  FROM STUDENTS
+	</sql>
+	<sql id="where_name_email">
+	    <where>
+	        <if test="name != null">
+	            name = #{name}
+	        </if>
+	        <if test="email != null">
+	            AND email = #{email}
+	        </if>
+	    </where>
+	</sql>
+	
+	<resultMap type="Student" id="StudentGenderResult" extends="StudentResult">
+	    <result property="gender" column="gender" />
+	</resultMap>
+	
+	<select id="selectStudentByMap" parameterType="map" resultMap="StudentGenderResult">
+	    <include refid="selectAddGenderSQL"/>
+	    <include refid="where_name_email"/>
+	</select>
+	
+	<select id="selectAllStudentByMap" parameterType="map" resultMap="StudentGenderResult">
+	    <include refid="selectAddGenderSQL"/>
+	    <include refid="where_name_email"/>
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertStudent" parameterType="Student">
+	    insert into students(stud_id, name, email, phone, dob) 
+	    values(#{studId}, #{name}, #{email}, #{phone}, #{dob})
+	</insert>
+	
+	<!-- delete -->
+	<delete id="deleteStudent" parameterType="int">
+	    delete 
+	      from students 
+	     where stud_id=#{studId}
+	</delete>
+	
+	<!-- update -->
+	<update id="updateStudent" parameterType="Student">
+	    update students 
+	       set name=#{name}, email=#{email},phone=#{phone}, dob=#{dob}
+	     where stud_id=#{studId}
+	</update>
+	
+	<!-- ResultSet 처리방식의 재정의 -->
+	<select id="selectStudentForMap" parameterType="int" resultMap="StudentGenderResult">
+	    <include refid="selectSQL"/>
+	    <include refid="whereSQL"/>
+	</select>
+		
+	
 </mapper>
 
 
