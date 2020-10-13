@@ -6,7 +6,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -64,7 +63,7 @@ public class StudentMapperTest {
         System.out.println("testSelectStudentByAll()");
         List<Student> list = mapper.selectStudentByAll();
         Assert.assertNotNull(list);
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(student -> log.debug(student.toString()));  
     }
     
     @Test
@@ -72,7 +71,7 @@ public class StudentMapperTest {
        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
        List<Student> list = mapper.selectStudentByAllForResutlMap();
        Assert.assertNotNull(list);
-       list.stream().forEach(System.out::println);
+       list.stream().forEach(student -> log.debug(student.toString()));
     }
     
     @Test
@@ -80,11 +79,7 @@ public class StudentMapperTest {
        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
        List<Map<String,Object>> list = mapper.selectStudentByAllForHashMap();
        Assert.assertNotNull(list);
-       for(Map<String, Object> map : list) {
-           for(Entry<String, Object> e : map.entrySet()) {
-               log.debug(String.format("%s -> %s", e.getKey(), e.getValue()));
-           }
-       }
+       list.stream().forEach(map->{map.forEach((k,v)->{log.debug(k + " -> " +  v);});});
     }
 
     @Test
@@ -161,20 +156,20 @@ public class StudentMapperTest {
         maps.put("email", "timothy@gmail.com");
         List<Student> list = mapper.selectAllStudentByMap(maps);
         Assert.assertNotNull(list);
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(student -> log.debug(student.toString()));
         
         maps.remove("email");
         list = mapper.selectAllStudentByMap(maps);
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(student -> log.debug(student.toString()));
         
         maps.clear();
         maps.put("email", "timothy@gmail.com");
         list = mapper.selectAllStudentByMap(maps);
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(student -> log.debug(student.toString()));
         
         maps.clear();
         list = mapper.selectAllStudentByMap(maps);
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(student -> log.debug(student.toString()));
     }
     
     @Test

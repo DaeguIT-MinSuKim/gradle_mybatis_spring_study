@@ -110,4 +110,30 @@ public class CourseMapperTest {
         list.stream().forEach(course -> log.debug(course.toString()));  
     }
 
+    @Test
+    public void test06SelectTrimCourses() {
+        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Course> list = mapper.selectTrimCourses(map);
+        Assert.assertNotNull(list);
+        list.stream().forEach(course -> log.debug(course.toString()));  
+            
+        map.put("tutorId", 1); 
+        list = mapper.selectTrimCourses(map);
+        Assert.assertNotNull(list);
+        list.stream().forEach(course -> log.debug(course.toString()));  
+        
+        map.clear();
+        map.put("courseName", "%Java%");
+        list = mapper.selectTrimCourses(map);
+        Assert.assertNotNull(list);
+        list.stream().forEach(course -> log.debug(course.toString()));  
+        
+        map.put("tutorId", 1);
+        list = mapper.selectTrimCourses(map);
+        Assert.assertNotNull(list);
+        list.stream().forEach(course -> log.debug(course.toString()));  
+    }
+
 }

@@ -43,7 +43,7 @@ public class TutorMapperTest {
         log.trace(tutor.getTutorId() + " : " + tutor.getName());
         List<Course> list = tutor.getCourses();
         Assert.assertNotNull(list); 
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(t -> log.debug(t.toString()));
     }
 
 }

@@ -12,5 +12,8 @@ public interface CourseMapper {
     List<Course> selectCaseCourses(Map<String, Object> map);
     /* 동적SQL - where 조건 */
     List<Course> selectWhereCourses(Map<String, Object> map);
+    
+    /* 동적SQL - trim 조건 */
+    List<Course> selectTrimCourses(Map<String, Object> map);
 
 }

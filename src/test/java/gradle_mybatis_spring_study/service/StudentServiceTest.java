@@ -1,7 +1,6 @@
 package gradle_mybatis_spring_study.service;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -35,10 +34,7 @@ public class StudentServiceTest {
 
         Map<Integer, String> map = service.selectStudentForMap(1);
         Assert.assertNotNull(map);
-        for (Entry<Integer, String> entry : map.entrySet()) {
-            System.out.printf("key(%s) - value(%s)%n", entry.getKey(), entry.getValue());
-        }
-
+        map.forEach((k,v)->{log.debug(k + " -> " +  v);});
     }
 
     @Test
@@ -47,10 +43,7 @@ public class StudentServiceTest {
 
         Map<Integer, Student> map = service.selectStudentForMap2(1);
         Assert.assertNotNull(map);
-        for (Entry<Integer, Student> entry : map.entrySet()) {
-            System.out.printf("key(%s) - value(%s)%n", entry.getKey(), entry.getValue());
-        }
-
+        map.forEach((k,v)->{log.debug(k + " -> " +  v);});
     }
 
 }
