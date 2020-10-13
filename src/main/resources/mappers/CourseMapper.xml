@@ -10,4 +10,98 @@
         <result property="endDate" column="end_date"/>
     </resultMap>
 
+	<!-- 동적SQL if조건 -->
+	<sql id="selectSql">
+	    select course_id, name, description, start_date, end_date, tutor_id  from courses
+	</sql>
+	
+	<sql id="whereSql">
+	    <where>
+	        <if test="tutorId != null">
+	            and tutor_id = #{tutorId}
+	        </if>
+	        <if test="courseName != null">
+	            and name like #{courseName}
+	        </if>
+	        <if test="startDate != null">
+	            and start_date &gt;= #{startDate}
+	        </if>
+	        <if test="endDate != null">
+	            and end_date &lt;= #{endDate}
+	        </if>
+	    </where>
+	</sql>
+	
+	<select id="selectCoursesByCondition" parameterType="map" resultMap="CourseResult">
+	    <include refid="selectSql"/>
+	    <include refid="whereSqlWithCDATA"/>
+	</select>
+
+	<sql id="whereSqlWithCDATA">
+	    <where>
+	        <if test="tutorId != null">
+            <![CDATA[ 
+            	and tutor_id = #{tutorId}
+            ]]>
+	        </if>
+	        <if test="courseName != null">
+	        <![CDATA[
+	        	and name like #{courseName}
+	        ]]>
+	        </if>
+	        <if test="startDate != null">
+	        <![CDATA[
+	        	and start_date >= #{startDate}
+	        ]]>
+	        </if>
+	        <if test="endDate != null">
+	        <![CDATA[
+	        	and end_date <= #{endDate}
+	        ]]>
+	        </if>
+	    </where>
+	</sql>
+	
+	<!-- 동적SQL - choose 조건 --> 
+	<select id="selectCaseCourses" parameterType="map" resultMap="CourseResult">
+	    <include refid="selectSql"/>
+	    <choose>
+	        <when test="searchBy=='Tutor'">
+	            where tutor_id=#{tutorId}
+	        </when>
+	        <when test="searchBy=='CourseName'">
+	            where name like #{courseName}
+	        </when>
+	        <otherwise>
+	            where end_date &gt;=now()
+	        </otherwise>
+	    </choose>
+	</select>
+	
+	<!-- 동적SQL - where 조건 -->
+	<sql id="whereSqlCDATA">
+	    <where>
+	        <if test="tutorId != null"> 
+	            <![CDATA[ and tutor_id = #{tutorId}      ]]>
+	        </if>
+	        
+	        <if test="courseName != null">
+	            <![CDATA[ and name like #{courseName}    ]]>
+	        </if>
+	        
+	        <if test="startDate != null"> 
+	            <![CDATA[ and start_date >= #{startDate} ]]>
+	        </if>
+	        
+	        <if test="endDate != null">   
+	            <![CDATA[ and end_date <= #{endDate}     ]]>
+	        </if>
+	    </where>
+	</sql>
+	
+	<select id="selectWhereCourses" parameterType="map" resultMap="CourseResult">
+	    <include refid="selectSql" />
+	    <include refid="whereSqlCDATA" />
+	</select>
+	
 </mapper>

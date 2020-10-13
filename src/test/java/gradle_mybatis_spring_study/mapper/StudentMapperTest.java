@@ -40,7 +40,7 @@ public class StudentMapperTest {
     private StudentMapper mapper;
     
     @Test
-    public void testSelectStudentByNo() {
+    public void test01SelectStudentByNo() {
         System.out.println("testSelectStudentByNo()");
         Student student = new Student();
         student.setStudId(1);
@@ -50,7 +50,7 @@ public class StudentMapperTest {
     }
 
     @Test
-    public void testSelectStudentByNoWithResultMap() {
+    public void test02SelectStudentByNoWithResultMap() {
         System.out.println("testSelectStudentByNoWithResultMap()");
         Student student = new Student();
         student.setStudId(1);
@@ -60,7 +60,7 @@ public class StudentMapperTest {
     }
     
     @Test
-    public void testSelectStudentByAll() {
+    public void test03SelectStudentByAll() {
         System.out.println("testSelectStudentByAll()");
         List<Student> list = mapper.selectStudentByAll();
         Assert.assertNotNull(list);
@@ -68,7 +68,7 @@ public class StudentMapperTest {
     }
     
     @Test
-    public void test8SelectStudentByAllForResutlMap(){
+    public void test08SelectStudentByAllForResutlMap(){
        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
        List<Student> list = mapper.selectStudentByAllForResutlMap();
        Assert.assertNotNull(list);
@@ -76,7 +76,7 @@ public class StudentMapperTest {
     }
     
     @Test
-    public void test9SelectStudentByAllForHashMap(){
+    public void test09SelectStudentByAllForHashMap(){
        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
        List<Map<String,Object>> list = mapper.selectStudentByAllForHashMap();
        Assert.assertNotNull(list);
@@ -129,7 +129,8 @@ public class StudentMapperTest {
         Student std4 = mapper.selectStudentByNoForEnum(student);
         log.debug("student 4 > " + std4.toString());
         
-
+        mapper.deleteStudent(3);
+        mapper.deleteStudent(4);
     }
     
     @Test
@@ -177,7 +178,7 @@ public class StudentMapperTest {
     }
     
     @Test
-    public void testInsertStudent() {
+    public void test14InsertStudent() {
         Calendar newDate = GregorianCalendar.getInstance();
         newDate.set(1990, 2, 28);
 
@@ -192,7 +193,7 @@ public class StudentMapperTest {
     }
 
     @Test
-    public void test5DeleteStudent(){
+    public void test15DeleteStudent(){
         log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
         int deleteStudent = mapper.deleteStudent(3);
         mapper.deleteStudent(4);
@@ -200,7 +201,7 @@ public class StudentMapperTest {
     }
 
     @Test
-    public void test7UpdateStudent(){
+    public void test16UpdateStudent(){
         log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
         Student student = new Student();
         student.setStudId(1);
